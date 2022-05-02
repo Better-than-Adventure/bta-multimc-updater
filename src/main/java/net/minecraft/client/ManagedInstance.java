@@ -7,7 +7,7 @@ public class ManagedInstance
 {
     public String instanceName;
     public Path folderPath;
-    public String currentVersion = "Unknown";
+    public int currentVersionId = -1;
     public File fRootDir;
     public File fMinecraft;
     public File fJarmods;

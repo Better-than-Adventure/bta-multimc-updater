@@ -31,7 +31,11 @@ public class InstanceManager
             instance.fPatchesJson = new File(instance.fPatches, "org.multimc.jarmod.bta.json");
             instance.fJarmodsBtaJar = new File(instance.fJarmods, "bta.jar");
 
-            deleteFolder(instance.fRootDir.toPath());
+            try
+            {
+                deleteFolder(instance.fRootDir.toPath());
+            }
+            catch (Exception ignored) { }
 
             Files.createDirectory(instance.fRootDir.toPath());
             Files.createDirectory(instance.fMinecraft.toPath());
@@ -46,7 +50,7 @@ public class InstanceManager
             populateMmcPackJson(instance.fMmcPackJson);
             populatePatchesJson(instance.fPatchesJson);
 
-            copyFolder(instance.fRootDir.toPath(), Path.of("../../" + folderName));
+            copyFolder(instance.fRootDir.toPath(), new File("../../" + folderName).toPath());
 
             File tempDir = new File("../../temp");
             tempDir.mkdir();
@@ -56,7 +60,7 @@ public class InstanceManager
         }
         else
         {
-            System.out.println("Instance " + folderName + " located.");
+            System.out.println("Instance \"" + instanceName + "\" located.");
         }
 
         instance.fRootDir = new File( "../../" + folderName);
@@ -71,7 +75,11 @@ public class InstanceManager
 
         if (Files.size(instance.fVersion.toPath()) > 0)
         {
-            instance.currentVersion = Files.readString(instance.fVersion.toPath());
+            try
+            {
+                instance.currentVersionId = Integer.parseInt(Files.readAllLines(instance.fVersion.toPath()).get(0));
+            }
+            catch (Exception ignored) { }
         }
 
         instance.instanceName = instanceName;
@@ -100,38 +108,37 @@ public class InstanceManager
     private void populateMmcPackJson(File fMmcPackJson) throws IOException
     {
         FileWriter fw = new FileWriter(fMmcPackJson);
-        String toWrite = """
-{
-    "components": [
-        {
-            "cachedName": "LWJGL 2",
-            "cachedVersion": "2.9.4-nightly-20150209",
-            "cachedVolatile": true,
-            "dependencyOnly": true,
-            "uid": "org.lwjgl",
-            "version": "2.9.4-nightly-20150209"
-        },
-        {
-            "cachedName": "Minecraft",
-            "cachedRequires": [
-                {
-                    "suggests": "2.9.4-nightly-20150209",
-                    "uid": "org.lwjgl"
-                }
-            ],
-            "cachedVersion": "b1.7.3",
-            "important": true,
-            "uid": "net.minecraft",
-            "version": "b1.7.3"
-        },
-        {
-            "cachedName": "bta (jar mod)",
-            "uid": "org.multimc.jarmod.bta"
-        }
-    ],
-    "formatVersion": 1
-}
-    """;
+        String toWrite =
+"{\n" +
+"    \"components\": [\n" +
+"        {\n" +
+"            \"cachedName\": \"LWJGL 2\",\n" +
+"            \"cachedVersion\": \"2.9.4-nightly-20150209\",\n" +
+"            \"cachedVolatile\": true,\n" +
+"            \"dependencyOnly\": true,\n" +
+"            \"uid\": \"org.lwjgl\",\n" +
+"            \"version\": \"2.9.4-nightly-20150209\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"cachedName\": \"Minecraft\",\n" +
+"            \"cachedRequires\": [\n" +
+"                {\n" +
+"                    \"suggests\": \"2.9.4-nightly-20150209\",\n" +
+"                    \"uid\": \"org.lwjgl\"\n" +
+"                }\n" +
+"            ],\n" +
+"            \"cachedVersion\": \"b1.7.3\",\n" +
+"            \"important\": true,\n" +
+"            \"uid\": \"net.minecraft\",\n" +
+"            \"version\": \"b1.7.3\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"cachedName\": \"bta (jar mod)\",\n" +
+"            \"uid\": \"org.multimc.jarmod.bta\"\n" +
+"        }\n" +
+"    ],\n" +
+"    \"formatVersion\": 1\n" +
+"}\n";
 
         fw.write(toWrite);
         fw.close();
@@ -140,21 +147,20 @@ public class InstanceManager
     private void populatePatchesJson(File fPatchesJson) throws IOException
     {
         FileWriter fw = new FileWriter(fPatchesJson);
-        String toWrite = """
-{
-    "formatVersion": 1,
-    "jarMods": [
-        {
-            "MMC-displayname": "bta",
-            "MMC-filename": "bta.jar",
-            "MMC-hint": "local",
-            "name": "org.multimc.jarmods:bta:1"
-        }
-    ],
-    "name": "bta (jar mod)",
-    "uid": "org.multimc.jarmod.bta"
-}
-        """;
+        String toWrite =
+"{\n" +
+"    \"formatVersion\": 1,\n" +
+"    \"jarMods\": [\n" +
+"        {\n" +
+"            \"MMC-displayname\": \"bta\"," +
+"            \"MMC-filename\": \"bta.jar\",\n" +
+"            \"MMC-hint\": \"local\",\n" +
+"            \"name\": \"org.multimc.jarmods:bta:1\"\n" +
+"        }\n" +
+"    ],\n" +
+"    \"name\": \"bta (jar mod)\",\n" +
+"    \"uid\": \"org.multimc.jarmod.bta\"\n" +
+"}\n";
 
         fw.write(toWrite);
         fw.close();
