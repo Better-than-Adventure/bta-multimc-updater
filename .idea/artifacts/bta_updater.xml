@@ -4,7 +4,7 @@
     <root id="archive" name="bta-updater.jar">
       <element id="module-output" name="BTA-MultiMC-Updater" />
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/app/src/main/resources/META-INF/MANIFEST.MF" />
       </element>
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" />
       <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.2.2" />
