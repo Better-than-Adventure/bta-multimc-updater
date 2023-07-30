@@ -31,7 +31,7 @@ public class VersionManager
             return;
         }
 
-        GHRepository repo = github.getRepositoryById(672487794);
+        GHRepository repo = github.getRepositoryById(394789419);
 
         // Get each release
         for (GHRelease release : repo.listReleases())
