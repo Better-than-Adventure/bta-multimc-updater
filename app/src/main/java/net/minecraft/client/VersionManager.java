@@ -1,95 +1,88 @@
 package net.minecraft.client;
 
-import org.kohsuke.github.GHAsset;
+import net.minecraft.client.version.JsonVersion;
+import net.minecraft.client.version.OldStyleVersion;
+import net.minecraft.client.version.Version;
 import org.kohsuke.github.GHRelease;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 
 public class VersionManager
 {
-    private GitHub github = null;
-    private GHRepository repo = null;
+    public final List<Version> versions = new ArrayList<>();
 
-    public HashMap<Integer, GHRelease> releases = new HashMap<>();
-    public List<Integer> releaseIds = new ArrayList<>();
+    public VersionManager() { }
 
-    public void connect(boolean includePrereleases)
+    public void connect()
         throws IOException
     {
         System.out.println("Reading version list from GitHub...");
 
-        github = GitHub.connectAnonymously();
+        GitHub github = GitHub.connectAnonymously();
 
         if (github.getRateLimit().getRemaining() == 0)
         {
-            throw new IOException("GitHub API rate limit exceeded! Please try again later. (Max: " + github.getRateLimit().getLimit() + ")");
+            System.out.println("GitHub API rate limit exceeded! Please try again later. (Max: " + github.getRateLimit().getLimit() + ")");
+            return;
         }
 
-        repo = github.getRepositoryById(394789419);
+        GHRepository repo = github.getRepositoryById(672487794);
 
         // Get each release
         for (GHRelease release : repo.listReleases())
         {
-            // Check if this is a prerelease
-            if (!includePrereleases && release.isPrerelease()) continue;
-
-            // Find version ID
+            // Check for old-style releases first
             String body = release.getBody();
-            int id;
+            int id = -1;
             try
             {
                 id = Integer.parseInt(body);
             }
-            catch (NumberFormatException ignored)
-            {
-                System.out.println("Warning: Could not parse ID for version " + release.getName());
-                continue;
-            }
+            catch (NumberFormatException ignored) { }
 
-            // Check if ID is < 0, and if so, ignore it
-            if (id < 0) continue;
-
-            // Check if this release contains a valid bta.jar
-            boolean foundBtaJar = false;
-            for (GHAsset asset : release.listAssets())
+            if (id >= 0)
             {
-                if (asset.getName().equals("bta.jar"))
-                {
-                    foundBtaJar = true;
-                    break;
-                }
+                // Old-style release
+                versions.add(new OldStyleVersion(release));
             }
-            if (!foundBtaJar)
+            else
             {
-                System.out.println("Warning: Could not find bta.jar for version " + release.getName());
-                continue;
+                // Possible new-style release - check for manifest.json
+                release.listAssets().forEach(asset -> {
+                    if (asset.getName().equals("manifest.json"))
+                    {
+                        // New-style release
+                        try
+                        {
+                            versions.add(new JsonVersion(release));
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("Warning: Could not parse version " + release.getName() + ": " + e.getMessage());
+                        }
+                    }
+                });
             }
-
-            // Release checks out - add it
-            releases.put(id, release);
-            releaseIds.add(id);
         }
 
-        // Sort release IDs from lowest to highest
-        Collections.sort(releaseIds);
-
-        System.out.println(releases.size() + " versions available. Most recent is " + releases.get(getMostRecentVersionId()).getName() + ".");
+        versions.sort(Comparator.comparingLong(Version::getTimestamp));
     }
 
-    public GHRelease getReleaseFromVersionId(int versionId)
+    public Version getLatestVersion(boolean allowPrereleases)
     {
-        return releases.getOrDefault(versionId, null);
+        for (int i = versions.size() - 1; i >= 0; i--)
+        {
+            Version v = versions.get(i);
+            if (allowPrereleases || !v.isPrerelease())
+            {
+                return v;
+            }
+        }
+        return null;
     }
-
-    public int getMostRecentVersionId()
-    {
-        return releaseIds.get(releaseIds.size() - 1);
-    }
-
 }

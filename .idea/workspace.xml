@@ -10,43 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d9d275-edbf-4666-83b1-aeb1165ae4dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/bta_updater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/bta_updater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_8_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_kohsuke_github_api_1_306.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BTA-MultiMC-Updater.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minecraft/client/DownloadManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/DownloadManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minecraft/client/InstanceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/InstanceManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minecraft/client/ManagedInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/ManagedInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minecraft/client/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/minecraft/client/VersionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/VersionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/BTA-MultiMC-Updater-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/BTA-MultiMC-Updater-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/DownloadManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/InstanceManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/InstanceManager$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/InstanceManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/ManagedInstance.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/Minecraft.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/minecraft/client/VersionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-cli/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,6 +90,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -138,7 +103,7 @@
       <recent name="C:\Users\josep\Documents\Projects\bta-multimc-updater\app\src\main\java\net\minecraft" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.bta-multimc-updater [jar]">
+  <component name="RunManager" selected="Gradle.bta-multimc-updater [shadowJar]">
     <configuration name="Minecraft" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.minecraft.client.Minecraft" />
       <module name="bta-multimc-updater.app.main" />
@@ -196,8 +161,31 @@
       <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
+    <configuration name="bta-multimc-updater [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="shadowJar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.bta-multimc-updater [shadowJar]" />
         <item itemvalue="Gradle.bta-multimc-updater [jar]" />
         <item itemvalue="Gradle.bta-multimc-updater [build]" />
         <item itemvalue="Application.Minecraft" />
@@ -214,7 +202,8 @@
       <updated>1651052892896</updated>
       <workItem from="1689580442778" duration="178000" />
       <workItem from="1689666872231" duration="14000" />
-      <workItem from="1689887703538" duration="1053000" />
+      <workItem from="1689887703538" duration="1531000" />
+      <workItem from="1690707344093" duration="12114000" />
     </task>
     <servers />
   </component>
