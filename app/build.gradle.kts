@@ -11,9 +11,8 @@ repositories {
 
 dependencies {
     // This dependency is used by the application.
-    implementation("com.google.guava:guava:30.1.1-jre")
-    implementation("org.kohsuke:github-api:1.315")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.jetbrains:annotations:24.0.0")
 }
 
 application {
