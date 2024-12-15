@@ -1,0 +1,83 @@
+{
+    "+traits": [
+        "texturepacks",
+        "noapplet",
+        "legacyLaunch"
+    ],
+    "libraries": [
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "org/apache/logging/log4j/log4j-api/2.19.0/log4j-api-2.19.0.jar",
+                    "sha1": "ea1b37f38c327596b216542bc636cfdc0b8036fa",
+                    "size": 317566,
+                    "url": "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-api/2.19.0/log4j-api-2.19.0.jar"
+                }
+            },
+            "name": "org.apache.logging.log4j:log4j-api:2.19.0"
+        },
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar",
+                    "sha1": "3b6eeb4de4c49c0fe38a4ee27188ff5fee44d0bb",
+                    "size": 1864386,
+                    "url": "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar"
+                }
+            },
+            "name": "org.apache.logging.log4j:log4j-core:2.19.0"
+        },
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "org/apache/logging/log4j/log4j-slf4j2-impl/2.19.0/log4j-slf4j2-impl-2.19.0.jar",
+                    "sha1": "5c04bfdd63ce9dceb2e284b81e96b6a70010ee10",
+                    "size": 27721,
+                    "url": "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-slf4j2-impl/2.19.0/log4j-slf4j2-impl-2.19.0.jar"
+                }
+            },
+            "name": "org.apache.logging.log4j:log4j-slf4j2-impl:2.19.0"
+        },
+        {
+            "downloads": {
+                "artifact": {
+                    "path": "org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar",
+                    "sha1": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
+                    "size": 63635,
+                    "url": "https://libraries.minecraft.net/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar"
+                }
+            },
+            "name": "org.slf4j:slf4j-api:2.0.7"
+        }
+    ],
+    "assetIndex": {
+        "id": "pre-1.6",
+        "sha1": "3d8e55480977e32acd9844e545177e69a52f594b",
+        "size": 74091,
+        "totalSize": 49505710,
+        "url": "https://launchermeta.mojang.com/v1/packages/3d8e55480977e32acd9844e545177e69a52f594b/pre-1.6.json"
+    },
+    "formatVersion": 1,
+    "mainJar": {
+        "downloads": {
+            "artifact": {
+                "sha1": "43db9b498cb67058d2e12d394e6507722e71bb45",
+                "size": 1465375,
+                "url": "https://launcher.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar"
+            }
+        },
+        "name": "com.mojang:minecraft:b1.7.3:client"
+    },
+    "minecraftArguments": "--username ${auth_player_name} --session ${auth_session} --gameDir ${game_directory} --uuid ${auth_uuid}",
+    "name": "Minecraft",
+    "releaseTime": "2011-07-08T00:00:00+02:00",
+    "requires": [
+        {
+            "suggests": "3.3.3",
+            "uid": "org.lwjgl"
+        }
+    ],
+    "type": "old_beta",
+    "uid": "net.minecraft",
+    "version": "b1.7.3"
+}
