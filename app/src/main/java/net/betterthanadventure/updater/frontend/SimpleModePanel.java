@@ -109,7 +109,7 @@ public class SimpleModePanel extends MinecraftJPanel {
         });
 
         this.installUpdateButton.addActionListener(e -> {
-            final @NotNull Channel channel = this.backendManager.getDownloadManager().getDefaultChannel();
+            final @NotNull Channel channel = this.backendManager.getDownloadManager().getChannels().get(1);
             final @NotNull Version version = channel.getDefaultVersion();
 
             this.installUpdateButton.setVisible(false);
@@ -131,7 +131,7 @@ public class SimpleModePanel extends MinecraftJPanel {
     }
 
     private void updateState() {
-        this.latestVersion = this.backendManager.getDownloadManager().getDefaultChannel().getDefaultVersion().getId();
+        this.latestVersion = this.backendManager.getDownloadManager().getChannels().get(1).getDefaultVersion().getId();
         if (!this.backendManager.getInstanceManager().exists()) {
             this.installedVersion = this.resources.getString("frontend.main_window.simple.no_version");
         } else {
