@@ -5,10 +5,14 @@ import net.betterthanadventure.updater.backend.BackendManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -57,6 +61,15 @@ public final class MainWindow {
         this.frame.setResizable(false);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set icon
+        try {
+            final @NotNull List<@NotNull Image> icons = new ArrayList<>();
+            for (int i = 32; i <= 256; i <<= 1) {
+                icons.add(ImageIO.read(getClass().getResource("/image/icon/icon" + i + ".png")));
+                this.frame.setIconImages(icons);
+            }
+        } catch (final @NotNull IOException ignored) { }
 
         // Init main panel
         this.mainPanel = new JPanel();

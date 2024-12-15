@@ -49,6 +49,11 @@ public class MinecraftJProgressBar extends JProgressBar implements IProgressRepo
     }
 
     @Override
+    protected void paintBorder(final Graphics g) {
+        return;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         final int width = getWidth();
         final int height = getHeight();
