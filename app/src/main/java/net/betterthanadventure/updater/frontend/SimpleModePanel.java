@@ -1,11 +1,13 @@
 package net.betterthanadventure.updater.frontend;
 
 import net.betterthanadventure.updater.backend.BackendManager;
+import net.betterthanadventure.updater.backend.IProgressReporter;
 import net.betterthanadventure.updater.backend.downloads.Channel;
 import net.betterthanadventure.updater.backend.downloads.Version;
 import net.betterthanadventure.updater.frontend.theme.MinecraftJButton;
 import net.betterthanadventure.updater.frontend.theme.MinecraftJLabel;
 import net.betterthanadventure.updater.frontend.theme.MinecraftJPanel;
+import net.betterthanadventure.updater.frontend.theme.MinecraftJProgressBar;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +30,8 @@ public class SimpleModePanel extends MinecraftJPanel {
     private final @NotNull JLabel installedLabel;
     private final @NotNull JLabel updateAvailableLabel;
     private final @NotNull JButton installUpdateButton;
+    private final @NotNull MinecraftJProgressBar progressBar;
+    private final @NotNull Timer timer;
 
     private @NotNull String latestVersion = "";
     private @NotNull String installedVersion = "";
@@ -73,12 +77,27 @@ public class SimpleModePanel extends MinecraftJPanel {
         this.installUpdateButton = new MinecraftJButton("");
         this.installUpdateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         lowerPanel.add(this.installUpdateButton);
+
+        this.progressBar = new MinecraftJProgressBar();
+        this.progressBar.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.progressBar.setVisible(false);
+        lowerPanel.add(this.progressBar);
         lowerPanel.add(Box.createVerticalGlue());
 
         add(upperPanel, BorderLayout.NORTH);
         add(lowerPanel, BorderLayout.CENTER);
 
         updateState();
+
+        this.timer = new Timer(100, e -> {
+            if (this.progressBar.getDone()) {
+                SimpleModePanel.this.installUpdateButton.setVisible(true);
+                SimpleModePanel.this.progressBar.setVisible(false);
+                SimpleModePanel.this.timer.stop();
+                SimpleModePanel.this.forcedUpdate = false;
+                SimpleModePanel.this.updateState();
+            }
+        });
 
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), "forced_toggle");
         getActionMap().put("forced_toggle", new AbstractAction() {
@@ -89,18 +108,23 @@ public class SimpleModePanel extends MinecraftJPanel {
             }
         });
 
-
         this.installUpdateButton.addActionListener(e -> {
             final @NotNull Channel channel = this.backendManager.getDownloadManager().getDefaultChannel();
             final @NotNull Version version = channel.getDefaultVersion();
 
-            try {
-                this.backendManager.getInstanceManager().synchronize(channel, version);
-                this.forcedUpdate = false;
-                updateState();
-            } catch (final @NotNull Exception ex) {
-                JOptionPane.showMessageDialog(this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            this.installUpdateButton.setVisible(false);
+            this.progressBar.setVisible(true);
+            this.repaint();
+
+            new Thread(() -> {
+                try {
+                    this.timer.setRepeats(true);
+                    this.timer.start();
+                    this.backendManager.getInstanceManager().synchronize(channel, version, this.progressBar);
+                } catch (final @NotNull Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }).start();
         });
     }
 
