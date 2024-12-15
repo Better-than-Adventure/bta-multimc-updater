@@ -86,7 +86,6 @@ public class SimpleModePanel extends MinecraftJPanel {
             public void actionPerformed(final ActionEvent e) {
                 SimpleModePanel.this.forcedUpdate = !SimpleModePanel.this.forcedUpdate;
                 updateState();
-                SimpleModePanel.this.repaint();
             }
         });
 
@@ -137,5 +136,7 @@ public class SimpleModePanel extends MinecraftJPanel {
             }
             this.installUpdateButton.setEnabled(true);
         }
+
+        SimpleModePanel.this.repaint();
     }
 }

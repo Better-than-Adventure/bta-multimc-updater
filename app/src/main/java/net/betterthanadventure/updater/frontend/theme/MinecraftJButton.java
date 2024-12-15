@@ -6,8 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 public class MinecraftJButton extends JButton {
     private final @NotNull Image background;
@@ -29,24 +31,17 @@ public class MinecraftJButton extends JButton {
         setFont(FontRenderer.getInstance().getFont());
         setPreferredSize(new Dimension(getPreferredSize().width + Constants.GUI_SCALE * 14, 20 * Constants.GUI_SCALE));
 
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(final MouseEvent e) { }
-
-            @Override
-            public void mousePressed(final MouseEvent e) { }
-
-            @Override
-            public void mouseReleased(final MouseEvent e) { }
-
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
                 MinecraftJButton.this.mouseOver = true;
+                MinecraftJButton.this.repaint();
             }
 
             @Override
             public void mouseExited(final MouseEvent e) {
                 MinecraftJButton.this.mouseOver = false;
+                MinecraftJButton.this.repaint();
             }
         });
     }

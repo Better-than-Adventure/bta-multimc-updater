@@ -10,44 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d9d275-edbf-4666-83b1-aeb1165ae4dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/LauncherType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/Updater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/BackendManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/Channel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/Downloadable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/Project.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/Version.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/json/AutoManifestJson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/json/ChannelsJson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/downloads/json/VersionsJson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/backend/instance/InstanceManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/AdvancedModePanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/MainWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/SimpleModePanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/FontRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/MinecraftJButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/MinecraftJLabel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/MinecraftJPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/TexturedJPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/Language.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/fonts/MinecraftRegular.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/image/button_disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/resources/image/logo-header.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/Updater.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/VersionManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/instance/Instance.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/json/Downloadable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/json/Manifest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/ops/Merge.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/version/JsonVersion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/version/OldStyleVersion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/minecraft/client/version/Version.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/SimpleModePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/SimpleModePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/MinecraftJButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/betterthanadventure/updater/frontend/theme/MinecraftJButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +69,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "v3.0",
     "last_opened_file_path": "E:/Projects/bta-multimc-updater/app/BTA_MANAGED_INSTANCE/jarmods",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -113,6 +80,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -133,79 +101,13 @@
       <recent name="net.betterthanadventure.updater.backend" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.bta-multimc-updater [run]">
-    <configuration name="bta-multimc-updater [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager">
+    <configuration name="bta-multimc-updater:app [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="bta-multimc-updater [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="bta-multimc-updater [runShadow]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="runShadow" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="bta-multimc-updater [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -216,29 +118,7 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="bta-multimc-updater [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="shadowJar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <RunAsTest>false</RunAsTest>
@@ -246,11 +126,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.bta-multimc-updater [run]" />
-        <item itemvalue="Gradle.bta-multimc-updater [runShadow]" />
-        <item itemvalue="Gradle.bta-multimc-updater [shadowJar]" />
-        <item itemvalue="Gradle.bta-multimc-updater [jar]" />
-        <item itemvalue="Gradle.bta-multimc-updater [build]" />
+        <item itemvalue="Gradle.bta-multimc-updater:app [run]" />
       </list>
     </recent_temporary>
   </component>
