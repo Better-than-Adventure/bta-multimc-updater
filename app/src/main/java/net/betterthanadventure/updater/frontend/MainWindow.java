@@ -56,6 +56,7 @@ public final class MainWindow {
         this.frame.setSize(300 * Constants.GUI_SCALE, 200 * Constants.GUI_SCALE);
         this.frame.setResizable(false);
         this.frame.setLocationRelativeTo(null);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Init main panel
         this.mainPanel = new JPanel();

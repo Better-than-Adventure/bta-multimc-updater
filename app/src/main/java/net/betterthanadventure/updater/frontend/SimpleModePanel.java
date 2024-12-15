@@ -116,7 +116,7 @@ public class SimpleModePanel extends MinecraftJPanel {
             this.progressBar.setVisible(true);
             this.repaint();
 
-            new Thread(() -> {
+            final @NotNull Thread t = new Thread(() -> {
                 try {
                     this.timer.setRepeats(true);
                     this.timer.start();
@@ -124,7 +124,9 @@ public class SimpleModePanel extends MinecraftJPanel {
                 } catch (final @NotNull Exception ex) {
                     JOptionPane.showMessageDialog(this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }).start();
+            });
+            t.setDaemon(true);
+            t.start();
         });
     }
 
