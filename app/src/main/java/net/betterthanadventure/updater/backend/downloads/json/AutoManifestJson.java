@@ -12,6 +12,8 @@ public class AutoManifestJson {
         private @Nullable String assetPath = null;
         @SerializedName("installPath")
         private @Nullable String installPath = null;
+        @SerializedName("size")
+        private @Nullable Long size = null;
         @SerializedName("md5")
         private @Nullable String md5 = null;
 
@@ -23,6 +25,10 @@ public class AutoManifestJson {
 
         public @Nullable String getInstallPath() {
             return this.installPath;
+        }
+
+        public @Nullable Long getSize() {
+            return size;
         }
 
         public @Nullable String getMd5() {

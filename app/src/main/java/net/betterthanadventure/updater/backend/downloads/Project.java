@@ -31,6 +31,7 @@ public class Project {
         final @NotNull List<@NotNull Channel> channels = new ArrayList<>();
         @Nullable Channel defaultChannel = null;
         for (final @NotNull String channelName : channelsJson.getChannels()) {
+            System.out.println("Fetching channel " + channelName);
             final @Nullable Channel channel = Channel.readChannelFromUrl(channelName, new URL(url, channelName + "/"));
             if (channel == null) {
                 return null;

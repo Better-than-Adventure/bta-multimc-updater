@@ -85,43 +85,24 @@ public class InstanceManager {
         return null;
     }
 
+    public final @NotNull File getWorkDir() {
+        return new File(this.instanceRoot, WORK_DIR_NAME);
+    }
+
     public final void synchronize(final @NotNull Channel channel, final @NotNull Version version, final @Nullable IProgressReporter progressReporter) throws IOException {
         if (progressReporter != null) {
             progressReporter.initialize();
         }
 
-        if (!this.instanceRoot.exists()) {
-            if (!this.instanceRoot.mkdir()) {
-                throw new IOException("Could not create instance directory!");
-            }
-        }
-
-        final @NotNull File workDir = new File(this.instanceRoot, WORK_DIR_NAME);
-        if (!workDir.exists()) {
-            if (!workDir.mkdir()) {
-                throw new IOException("Could not create working directory!");
-            }
-        }
-
         int i = 0;
         for (final @NotNull Downloadable downloadable : version.getDownloadables()) {
-            final @NotNull URL downloadableUrl = new URL(version.getUrl(), "auto/" + downloadable.getAssetPath());
-            final @NotNull File outFile = new File(workDir, downloadable.getAssetPath());
-            if (!outFile.getParentFile().exists()) {
-                if (!outFile.getParentFile().mkdirs()) {
-                    throw new IOException("Could not create directory for downloadable!");
-                }
-            }
-            try (final @NotNull InputStream stream = downloadableUrl.openStream()) {
-                Files.copy(stream, outFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }
+            final @NotNull DownloadableInstaller installer = new DownloadableInstaller(this, version.getUrl(), downloadable);
+            installer.synchronize();
             i++;
             if (progressReporter != null) {
                 progressReporter.setProgress((float) i / (float) version.getDownloadables().size());
             }
         }
-
-        // TODO: Copy in place
 
         final @NotNull Properties btaProperties = new Properties();
         btaProperties.setProperty(KEY_VERSION, version.getId());

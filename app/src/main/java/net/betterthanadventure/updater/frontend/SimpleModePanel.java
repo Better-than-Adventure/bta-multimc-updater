@@ -30,6 +30,7 @@ public class SimpleModePanel extends MinecraftJPanel {
     private final @NotNull JLabel installedLabel;
     private final @NotNull JLabel updateAvailableLabel;
     private final @NotNull JButton installUpdateButton;
+    private final @NotNull JButton helpButton;
     private final @NotNull MinecraftJProgressBar progressBar;
     private final @NotNull Timer timer;
 
@@ -77,6 +78,10 @@ public class SimpleModePanel extends MinecraftJPanel {
         this.installUpdateButton = new MinecraftJButton("");
         this.installUpdateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         lowerPanel.add(this.installUpdateButton);
+
+        this.helpButton = new MinecraftJButton("?");
+        this.installUpdateButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        upperPanel.add(this.helpButton);
 
         this.progressBar = new MinecraftJProgressBar();
         this.progressBar.setAlignmentX(JComponent.CENTER_ALIGNMENT);
