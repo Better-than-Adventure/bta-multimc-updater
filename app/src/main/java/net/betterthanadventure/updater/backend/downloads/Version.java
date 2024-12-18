@@ -26,13 +26,12 @@ public class Version {
             autoManifestJson.getName() == null ||
             autoManifestJson.getDownloadables() == null
         ) {
-            System.out.println("Version manifest was missing one or more fields!");
+            System.out.println("Version " + id + " manifest was missing one or more fields!");
             return null;
         }
 
         final @NotNull List<@NotNull Downloadable> downloadables = new ArrayList<>();
         for (final @NotNull AutoManifestJson.DownloadableJson downloadableJson : autoManifestJson.getDownloadables()) {
-            System.out.println("Fetching downloadable " + downloadableJson.getAssetPath());
             final @Nullable Downloadable downloadable = Downloadable.fromDownloadableJson(downloadableJson);
             if (downloadable == null) {
                 return null;

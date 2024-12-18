@@ -30,7 +30,6 @@ public class Channel {
         @Nullable Version defaultVersion = null;
         for (final @NotNull String versionName : versionsJson.getVersions()) {
             final @Nullable Version version;
-            System.out.println("Fetching version " + versionName);
             try {
                 version = Version.readVersionFromUrl(versionName, new URL(url, versionName + "/"));
             } catch (final @NotNull Exception e) {
@@ -45,7 +44,11 @@ public class Channel {
             }
         }
         if (defaultVersion == null) {
-            return null;
+            if (!versions.isEmpty()) {
+                defaultVersion = versions.get(versions.size() - 1);
+            } else {
+                return null;
+            }
         }
 
         return new Channel(url, id, versions, defaultVersion);
