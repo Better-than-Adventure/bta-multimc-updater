@@ -1,7 +1,6 @@
 package net.betterthanadventure.updater.frontend;
 
 import net.betterthanadventure.updater.backend.BackendManager;
-import net.betterthanadventure.updater.backend.IProgressReporter;
 import net.betterthanadventure.updater.backend.downloads.Channel;
 import net.betterthanadventure.updater.backend.downloads.Version;
 import net.betterthanadventure.updater.frontend.theme.MinecraftJButton;
@@ -17,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
@@ -27,11 +25,15 @@ public class SimpleModePanel extends MinecraftJPanel {
         HELP_PANEL_VISIBLE
     }
 
+    private static final int COLOR_YELLOW = 0xFFFF00;
+    private static final int COLOR_RED = 0xFF0000;
+    private static final int COLOR_GREEN = 0x00FF00;
+
     private final @NotNull ResourceBundle resources;
     private final @NotNull BackendManager backendManager;
 
     private final @NotNull JLabel installedLabel;
-    private final @NotNull JLabel updateAvailableLabel;
+    private final @NotNull MinecraftJLabel statusLabel;
     private final @NotNull JButton installUpdateButton;
     private final @NotNull JButton helpButton;
     private final @NotNull MinecraftJProgressBar progressBar;
@@ -43,6 +45,7 @@ public class SimpleModePanel extends MinecraftJPanel {
     private @NotNull String latestVersion = "";
     private @NotNull String installedVersion = "";
     private boolean forcedUpdate = false;
+    private boolean hasUpdated = false;
 
     public SimpleModePanel(final @NotNull ResourceBundle resources, final @NotNull BackendManager backendManager) {
         super(0.25f);
@@ -104,9 +107,9 @@ public class SimpleModePanel extends MinecraftJPanel {
         this.installedLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.mainPanel.add(this.installedLabel);
 
-        this.updateAvailableLabel = new MinecraftJLabel("", 0xFFFF00, true);
-        this.updateAvailableLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        this.mainPanel.add(this.updateAvailableLabel);
+        this.statusLabel = new MinecraftJLabel("", COLOR_YELLOW, true);
+        this.statusLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        this.mainPanel.add(this.statusLabel);
         this.mainPanel.add(Box.createVerticalGlue());
 
         this.installUpdateButton = new MinecraftJButton("");
@@ -163,6 +166,11 @@ public class SimpleModePanel extends MinecraftJPanel {
 
                 SimpleModePanel.this.installUpdateButton.setVisible(false);
                 SimpleModePanel.this.progressBar.setVisible(true);
+
+                SimpleModePanel.this.hasUpdated = false;
+                SimpleModePanel.this.statusLabel.setText(resources.getString("frontend.main_window.simple.status_label.label.updating"));
+                SimpleModePanel.this.statusLabel.setColor(COLOR_YELLOW);
+
                 SimpleModePanel.this.repaint();
 
                 final @NotNull Thread t = new Thread(() -> {
@@ -170,8 +178,14 @@ public class SimpleModePanel extends MinecraftJPanel {
                         SimpleModePanel.this.timer.setRepeats(true);
                         SimpleModePanel.this.timer.start();
                         SimpleModePanel.this.backendManager.getInstanceManager().synchronize(channel, version, SimpleModePanel.this.progressBar);
+                        SimpleModePanel.this.statusLabel.setText(resources.getString("frontend.main_window.simple.status_label.label.update_complete"));
+                        SimpleModePanel.this.statusLabel.setColor(COLOR_GREEN);
+                        SimpleModePanel.this.hasUpdated = true;
                     } catch (final @NotNull Exception ex) {
-                        JOptionPane.showMessageDialog(SimpleModePanel.this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                        SimpleModePanel.this.statusLabel.setText(resources.getString("frontend.main_window.simple.status_label.label.update_failed"));
+                        SimpleModePanel.this.statusLabel.setColor(COLOR_RED);
+                        SimpleModePanel.this.hasUpdated = true;
                     }
                 });
                 t.setDaemon(true);
@@ -195,22 +209,28 @@ public class SimpleModePanel extends MinecraftJPanel {
 
         this.installedLabel.setText(String.format(this.resources.getString("frontend.main_window.simple.installed_version_label.label"), this.installedVersion));
 
+        @Nullable String statusText = null;
+        int statusColor = COLOR_YELLOW;
+
         if (this.installedVersion.equals(this.latestVersion) && !this.forcedUpdate) {
-            this.updateAvailableLabel.setText("");
+            statusText = this.resources.getString("frontend.main_window.simple.status_label.label.up_to_date");
+            statusColor = COLOR_YELLOW;
             this.installUpdateButton.setText(this.resources.getString("frontend.main_window.simple.install_update_button.label.none_available"));
             this.installUpdateButton.setEnabled(false);
         } else {
-            if (this.backendManager.getInstanceManager().exists()) {
-                this.updateAvailableLabel.setText(this.resources.getString("frontend.main_window.simple.update_available_label.label"));
-            } else {
-                this.updateAvailableLabel.setText("");
-            }
+            statusText = this.resources.getString("frontend.main_window.simple.status_label.label.update_available");
+            statusColor = COLOR_YELLOW;
             if (this.backendManager.getInstanceManager().exists()) {
                 this.installUpdateButton.setText(String.format(this.resources.getString("frontend.main_window.simple.install_update_button.label.update"), this.latestVersion));
             } else {
                 this.installUpdateButton.setText(String.format(this.resources.getString("frontend.main_window.simple.install_update_button.label.install"), this.latestVersion));
             }
             this.installUpdateButton.setEnabled(true);
+        }
+
+        if (statusText != null && !this.hasUpdated) {
+            this.statusLabel.setText(statusText);
+            this.statusLabel.setColor(statusColor);
         }
 
         SimpleModePanel.this.repaint();

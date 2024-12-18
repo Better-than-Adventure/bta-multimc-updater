@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MinecraftJLabel extends JLabel {
-    private final int rgb;
+    private int rgb;
     private final boolean shadowed;
 
     public MinecraftJLabel(final @NotNull String text, final int rgb, final boolean shadowed) {
@@ -15,6 +15,10 @@ public class MinecraftJLabel extends JLabel {
         this.shadowed = shadowed;
         this.setFont(FontRenderer.getInstance().getFont());
         this.setPreferredSize(null);
+    }
+
+    public void setColor(final int rgb) {
+        this.rgb = rgb;
     }
 
     @Override
