@@ -12,7 +12,7 @@ public class ChannelsJson {
     @SerializedName("default")
     private @Nullable String defaultChannel = null;
 
-    public ChannelsJson() { }
+    private ChannelsJson() { }
 
     public final @Nullable List<@NotNull String> getChannels() {
         return this.channels;

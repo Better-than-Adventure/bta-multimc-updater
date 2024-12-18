@@ -96,7 +96,7 @@ public class SimpleModePanel extends MinecraftJPanel {
 
         try {
             final @NotNull BufferedImage image = ImageIO.read(getClass().getResource("/image/logo-header.png"));
-            final @NotNull Image scaledImage = image.getScaledInstance((int) (image.getWidth() / (4.0 / Constants.GUI_SCALE)), (int) (image.getHeight() / (4.0 / Constants.GUI_SCALE)), Image.SCALE_FAST);
+            final @NotNull Image scaledImage = image.getScaledInstance((int) (image.getWidth() / (2.0 / Constants.GUI_SCALE)), (int) (image.getHeight() / (2.0 / Constants.GUI_SCALE)), Image.SCALE_FAST);
             final @NotNull ImageIcon icon = new ImageIcon(scaledImage);
             final @NotNull JLabel imageLabel = new JLabel(icon);
             imageLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);

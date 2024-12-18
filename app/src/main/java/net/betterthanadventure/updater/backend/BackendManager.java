@@ -1,11 +1,13 @@
 package net.betterthanadventure.updater.backend;
 
 import net.betterthanadventure.updater.LauncherType;
+import net.betterthanadventure.updater.backend.config.Config;
 import net.betterthanadventure.updater.backend.downloads.Project;
 import net.betterthanadventure.updater.backend.instance.InstanceManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -22,8 +24,9 @@ public final class BackendManager {
     }
 
     private final @NotNull LauncherType launcherType;
-    private final @NotNull InstanceManager instanceManager;
     private final @NotNull Project project;
+    private final @NotNull InstanceManager instanceManager;
+    private final @NotNull Config config;
 
     private BackendManager() throws IllegalStateException {
         this.launcherType = LauncherType.getLauncherType();
@@ -37,6 +40,11 @@ public final class BackendManager {
             throw new IllegalStateException(e);
         }
         this.instanceManager = new InstanceManager(this.launcherType, "BTA_MANAGED_INSTANCE", this.project.getDefaultChannel().getId());
+        this.config = new Config();
+        if (!this.config.read(new File("."))) {
+            this.config.initFromChannels(this.project.getChannels(), this.project.getDefaultChannel());
+            this.config.write(new File("."));
+        }
     }
 
     public @NotNull LauncherType getLauncherType() {
