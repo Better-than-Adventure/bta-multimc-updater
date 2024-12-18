@@ -57,10 +57,10 @@ public class MinecraftJButton extends JButton {
                             event.getLine().close();
                         }
                     });
+                    final @NotNull FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    control.setValue(control.getMinimum() + ((control.getMaximum() - control.getMinimum()) * 0.75f));
                     clip.start();
-                } catch (final @NotNull Exception ignored) {
-                    ignored.printStackTrace();
-                }
+                } catch (final @NotNull Exception ignored) { }
             }
         });
     }

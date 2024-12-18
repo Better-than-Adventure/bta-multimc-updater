@@ -27,7 +27,6 @@ public final class BackendManager {
 
     private BackendManager() throws IllegalStateException {
         this.launcherType = LauncherType.getLauncherType();
-        this.instanceManager = new InstanceManager(this.launcherType);
         try {
             final @Nullable Project project = Project.readProjectFromUrl(PROJECT_NAME, new URL(ROOT_URL + PROJECT_NAME + "/"));
             if (project == null) {
@@ -37,6 +36,7 @@ public final class BackendManager {
         } catch (final @NotNull Exception e) {
             throw new IllegalStateException(e);
         }
+        this.instanceManager = new InstanceManager(this.launcherType, "BTA_MANAGED_INSTANCE", this.project.getDefaultChannel().getId());
     }
 
     public @NotNull LauncherType getLauncherType() {
