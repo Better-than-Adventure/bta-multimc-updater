@@ -39,7 +39,7 @@ public class DownloadableInstaller {
     }
 
     public void synchronize() throws IOException {
-        // Create directory
+        // Create working directory
         final @Nullable File workDir = this.workingPath.getParentFile();
         if (workDir != null && !workDir.exists()) {
             if (!workDir.mkdirs()) {
@@ -75,6 +75,14 @@ public class DownloadableInstaller {
             }
         } catch (final @NotNull NoSuchAlgorithmException e) {
             System.out.println("ERROR: could not check MD5 signature. Skipping check.");
+        }
+
+        // Create install directory
+        final @Nullable File installDir = this.installPath.getParentFile();
+        if (installDir != null && !installDir.exists()) {
+            if (!installDir.mkdirs()) {
+                throw new IOException("Could not create install directory!");
+            }
         }
 
         // Copy to real directory
