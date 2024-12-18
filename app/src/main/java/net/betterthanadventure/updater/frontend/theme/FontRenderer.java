@@ -3,7 +3,6 @@ package net.betterthanadventure.updater.frontend.theme;
 import net.betterthanadventure.updater.frontend.Constants;
 import org.jetbrains.annotations.NotNull;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 
 public class FontRenderer {

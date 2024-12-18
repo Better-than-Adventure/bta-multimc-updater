@@ -15,16 +15,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class SimpleModePanel extends MinecraftJPanel {
+    private enum PanelState {
+        MAIN_PANEL_VISIBLE,
+        HELP_PANEL_VISIBLE
+    }
+
     private final @NotNull ResourceBundle resources;
     private final @NotNull BackendManager backendManager;
 
@@ -33,8 +35,11 @@ public class SimpleModePanel extends MinecraftJPanel {
     private final @NotNull JButton installUpdateButton;
     private final @NotNull JButton helpButton;
     private final @NotNull MinecraftJProgressBar progressBar;
+    private final @NotNull JPanel mainPanel;
+    private final @NotNull JPanel helpPanel;
     private final @NotNull Timer timer;
 
+    private @NotNull PanelState panelState = PanelState.MAIN_PANEL_VISIBLE;
     private @NotNull String latestVersion = "";
     private @NotNull String installedVersion = "";
     private boolean forcedUpdate = false;
@@ -55,18 +60,36 @@ public class SimpleModePanel extends MinecraftJPanel {
         add(upperPanel, BorderLayout.NORTH);
 
         final @NotNull JLabel versionLabel = new MinecraftJLabel(resources.getString("frontend.main_window.simple.version_label.label"), 0x505050, true);
-//        versionLabel.setAlignmentX(JComponent.LEFT_ALIGNMENT);
         upperPanel.add(versionLabel, BorderLayout.LINE_START);
 
         this.helpButton = new MinecraftJButton("?");
-//        this.helpButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        this.helpButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(final MouseEvent e) {
+                if (!SimpleModePanel.this.helpButton.isEnabled()) {
+                    return;
+                }
+
+                if (SimpleModePanel.this.panelState == PanelState.MAIN_PANEL_VISIBLE) {
+                    SimpleModePanel.this.remove(SimpleModePanel.this.mainPanel);
+                    SimpleModePanel.this.add(SimpleModePanel.this.helpPanel, BorderLayout.CENTER);
+                    SimpleModePanel.this.panelState = PanelState.HELP_PANEL_VISIBLE;
+                } else if (SimpleModePanel.this.panelState == PanelState.HELP_PANEL_VISIBLE) {
+                    SimpleModePanel.this.remove(SimpleModePanel.this.helpPanel);
+                    SimpleModePanel.this.add(SimpleModePanel.this.mainPanel, BorderLayout.CENTER);
+                    SimpleModePanel.this.panelState = PanelState.MAIN_PANEL_VISIBLE;
+                }
+                SimpleModePanel.this.revalidate();
+                SimpleModePanel.this.repaint();
+            }
+        });
         upperPanel.add(this.helpButton, BorderLayout.LINE_END);
 
-        // Lower panel
-        final @NotNull JPanel lowerPanel = new JPanel();
-        lowerPanel.setBackground(new Color(0x00000000, true));
-        lowerPanel.setLayout(new BoxLayout(lowerPanel, BoxLayout.Y_AXIS));
-        add(lowerPanel, BorderLayout.CENTER);
+        // Main panel
+        this.mainPanel = new JPanel();
+        this.mainPanel.setBackground(new Color(0x00000000, true));
+        this.mainPanel.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
+        add(this.mainPanel, BorderLayout.CENTER);
 
         try {
             final @NotNull BufferedImage image = ImageIO.read(getClass().getResource("/image/logo-header.png"));
@@ -74,27 +97,38 @@ public class SimpleModePanel extends MinecraftJPanel {
             final @NotNull ImageIcon icon = new ImageIcon(scaledImage);
             final @NotNull JLabel imageLabel = new JLabel(icon);
             imageLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-            lowerPanel.add(imageLabel);
+            this.mainPanel.add(imageLabel);
         } catch (final @NotNull IOException ignored) { }
 
         this.installedLabel = new MinecraftJLabel("", 0xFFFFFF, true);
         this.installedLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        lowerPanel.add(this.installedLabel);
+        this.mainPanel.add(this.installedLabel);
 
         this.updateAvailableLabel = new MinecraftJLabel("", 0xFFFF00, true);
         this.updateAvailableLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        lowerPanel.add(this.updateAvailableLabel);
-        lowerPanel.add(Box.createVerticalGlue());
+        this.mainPanel.add(this.updateAvailableLabel);
+        this.mainPanel.add(Box.createVerticalGlue());
 
         this.installUpdateButton = new MinecraftJButton("");
         this.installUpdateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-        lowerPanel.add(this.installUpdateButton);
+        this.mainPanel.add(this.installUpdateButton);
 
         this.progressBar = new MinecraftJProgressBar();
         this.progressBar.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.progressBar.setVisible(false);
-        lowerPanel.add(this.progressBar);
-        lowerPanel.add(Box.createVerticalGlue());
+        this.mainPanel.add(this.progressBar);
+        this.mainPanel.add(Box.createVerticalGlue());
+
+        // Help panel
+        this.helpPanel = new JPanel();
+        this.helpPanel.setBackground(new Color(0x00000000, true));
+        this.helpPanel.setBorder(new EmptyBorder(2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE));
+        this.helpPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+
+        for (int i = 0; i <= 10; i++) {
+            final @NotNull JLabel helpLabel = new MinecraftJLabel(resources.getString("frontend.main_window.simple.help_label.label." + i), 0xDFDFDF, true);
+            this.helpPanel.add(helpLabel);
+        }
 
         updateState();
 
@@ -117,25 +151,32 @@ public class SimpleModePanel extends MinecraftJPanel {
             }
         });
 
-        this.installUpdateButton.addActionListener(e -> {
-            final @NotNull Channel channel = this.backendManager.getDownloadManager().getChannels().get(1);
-            final @NotNull Version version = channel.getDefaultVersion();
-
-            this.installUpdateButton.setVisible(false);
-            this.progressBar.setVisible(true);
-            this.repaint();
-
-            final @NotNull Thread t = new Thread(() -> {
-                try {
-                    this.timer.setRepeats(true);
-                    this.timer.start();
-                    this.backendManager.getInstanceManager().synchronize(channel, version, this.progressBar);
-                } catch (final @NotNull Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        this.installUpdateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(final MouseEvent e) {
+                if (!SimpleModePanel.this.installUpdateButton.isEnabled()) {
+                    return;
                 }
-            });
-            t.setDaemon(true);
-            t.start();
+
+                final @NotNull Channel channel = SimpleModePanel.this.backendManager.getDownloadManager().getChannels().get(1);
+                final @NotNull Version version = channel.getDefaultVersion();
+
+                SimpleModePanel.this.installUpdateButton.setVisible(false);
+                SimpleModePanel.this.progressBar.setVisible(true);
+                SimpleModePanel.this.repaint();
+
+                final @NotNull Thread t = new Thread(() -> {
+                    try {
+                        SimpleModePanel.this.timer.setRepeats(true);
+                        SimpleModePanel.this.timer.start();
+                        SimpleModePanel.this.backendManager.getInstanceManager().synchronize(channel, version, SimpleModePanel.this.progressBar);
+                    } catch (final @NotNull Exception ex) {
+                        JOptionPane.showMessageDialog(SimpleModePanel.this, "Could not download: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                });
+                t.setDaemon(true);
+                t.start();
+            }
         });
     }
 

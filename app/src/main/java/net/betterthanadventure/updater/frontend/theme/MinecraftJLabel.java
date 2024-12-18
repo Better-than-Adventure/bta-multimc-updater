@@ -14,6 +14,7 @@ public class MinecraftJLabel extends JLabel {
         this.rgb = rgb;
         this.shadowed = shadowed;
         this.setFont(FontRenderer.getInstance().getFont());
+        this.setPreferredSize(null);
     }
 
     @Override

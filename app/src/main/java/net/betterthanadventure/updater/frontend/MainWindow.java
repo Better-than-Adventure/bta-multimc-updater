@@ -17,15 +17,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public final class MainWindow {
-    public static @Nullable MainWindow createMainWindow(final @NotNull ResourceBundle resources, final @Nullable BackendManager backendManager) {
-        if (backendManager == null) {
-            JOptionPane.showMessageDialog(null, "Could not connect to download repository!", "Error", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-
-        return new MainWindow(resources, backendManager);
-    }
-
     public enum DisplayMode {
         SIMPLE,
         ADVANCED
@@ -42,7 +33,7 @@ public final class MainWindow {
 
     private @NotNull DisplayMode displayMode = DisplayMode.SIMPLE;
 
-    private MainWindow(final @NotNull ResourceBundle resources, final @NotNull BackendManager backendManager) {
+    public MainWindow(final @NotNull ResourceBundle resources, final @NotNull BackendManager backendManager) {
         this.resources = resources;
         this.backendManager = backendManager;
 
@@ -95,13 +86,17 @@ public final class MainWindow {
             setDisplayMode(simpleAdvancedCheckBox.isSelected() ? DisplayMode.SIMPLE : DisplayMode.ADVANCED);
         });
         this.mainPanel.add(simpleAdvancedCheckBox, BorderLayout.SOUTH);
+    }
 
+    public void show() {
         this.frame.setVisible(true);
     }
 
-    public void setDisplayMode(final @NotNull DisplayMode displayMode) {
+    private void setDisplayMode(final @NotNull DisplayMode displayMode) {
         this.displayModeOuterPanel.remove(this.displayModePanels.get(this.displayMode));
         this.displayMode = displayMode;
         this.displayModeOuterPanel.add(this.displayModePanels.get(this.displayMode));
+        this.frame.revalidate();
+        this.frame.repaint();
     }
 }

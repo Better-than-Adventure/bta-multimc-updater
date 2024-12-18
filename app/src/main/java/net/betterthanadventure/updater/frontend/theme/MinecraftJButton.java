@@ -2,14 +2,14 @@ package net.betterthanadventure.updater.frontend.theme;
 
 import net.betterthanadventure.updater.frontend.Constants;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionAdapter;
 
 public class MinecraftJButton extends JButton {
     private final @NotNull Image background;
@@ -42,6 +42,25 @@ public class MinecraftJButton extends JButton {
             public void mouseExited(final MouseEvent e) {
                 MinecraftJButton.this.mouseOver = false;
                 MinecraftJButton.this.repaint();
+            }
+
+            @Override
+            public void mousePressed(final MouseEvent e) {
+                if (!MinecraftJButton.this.isEnabled()) {
+                    return;
+                }
+                try (final @NotNull AudioInputStream stream = AudioSystem.getAudioInputStream(MinecraftJButton.class.getResourceAsStream("/sound/click.wav"))) {
+                    final @NotNull Clip clip = AudioSystem.getClip();
+                    clip.open(stream);
+                    clip.addLineListener(event -> {
+                        if (event.getType().equals(LineEvent.Type.STOP)) {
+                            event.getLine().close();
+                        }
+                    });
+                    clip.start();
+                } catch (final @NotNull Exception ignored) {
+                    ignored.printStackTrace();
+                }
             }
         });
     }
