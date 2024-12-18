@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,16 +47,26 @@ public class SimpleModePanel extends MinecraftJPanel {
 
         this.setLayout(new BorderLayout());
 
+        // Upper panel
         final @NotNull JPanel upperPanel = new JPanel();
-        upperPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        upperPanel.setLayout(new BorderLayout());
         upperPanel.setBackground(new Color(0x00000000, true));
+        upperPanel.setBorder(new EmptyBorder(2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE, 2 * Constants.GUI_SCALE));
+        add(upperPanel, BorderLayout.NORTH);
+
+        final @NotNull JLabel versionLabel = new MinecraftJLabel(resources.getString("frontend.main_window.simple.version_label.label"), 0x505050, true);
+//        versionLabel.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+        upperPanel.add(versionLabel, BorderLayout.LINE_START);
+
+        this.helpButton = new MinecraftJButton("?");
+//        this.helpButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        upperPanel.add(this.helpButton, BorderLayout.LINE_END);
+
+        // Lower panel
         final @NotNull JPanel lowerPanel = new JPanel();
         lowerPanel.setBackground(new Color(0x00000000, true));
         lowerPanel.setLayout(new BoxLayout(lowerPanel, BoxLayout.Y_AXIS));
-
-        final @NotNull JLabel versionLabel = new MinecraftJLabel(resources.getString("frontend.main_window.simple.version_label.label"), 0x505050, true);
-        versionLabel.setAlignmentX(JComponent.LEFT_ALIGNMENT);
-        upperPanel.add(versionLabel);
+        add(lowerPanel, BorderLayout.CENTER);
 
         try {
             final @NotNull BufferedImage image = ImageIO.read(getClass().getResource("/image/logo-header.png"));
@@ -79,18 +90,11 @@ public class SimpleModePanel extends MinecraftJPanel {
         this.installUpdateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         lowerPanel.add(this.installUpdateButton);
 
-        this.helpButton = new MinecraftJButton("?");
-        this.installUpdateButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-        upperPanel.add(this.helpButton);
-
         this.progressBar = new MinecraftJProgressBar();
         this.progressBar.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         this.progressBar.setVisible(false);
         lowerPanel.add(this.progressBar);
         lowerPanel.add(Box.createVerticalGlue());
-
-        add(upperPanel, BorderLayout.NORTH);
-        add(lowerPanel, BorderLayout.CENTER);
 
         updateState();
 
