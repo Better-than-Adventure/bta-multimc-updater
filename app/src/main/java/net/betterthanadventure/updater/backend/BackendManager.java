@@ -40,10 +40,10 @@ public final class BackendManager {
             throw new IllegalStateException(e);
         }
         this.instanceManager = new InstanceManager(this.launcherType, "BTA_MANAGED_INSTANCE", this.project.getDefaultChannel().getId());
-        this.config = new Config();
-        if (!this.config.read(new File("."))) {
+        this.config = new Config(new File("."));
+        if (!this.config.read()) {
             this.config.initFromChannels(this.project.getChannels(), this.project.getDefaultChannel());
-            this.config.write(new File("."));
+            this.config.write();
         }
     }
 
@@ -57,5 +57,9 @@ public final class BackendManager {
 
     public @NotNull Project getDownloadManager() {
         return this.project;
+    }
+
+    public @NotNull Config getConfig() {
+        return this.config;
     }
 }

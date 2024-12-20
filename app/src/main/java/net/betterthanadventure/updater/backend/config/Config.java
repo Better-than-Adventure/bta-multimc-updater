@@ -47,20 +47,33 @@ public class Config {
     private static final @NotNull String CONFIG_FILE_NAME = "config.json";
     private static final @NotNull String DEFAULT_INSTANCE_DIR = "BTA_MANAGED_INSTANCE";
 
-    private final @NotNull List<@NotNull ChannelConfig> channelConfigs = new ArrayList<>();
+    private final @NotNull File configDir;
 
-    public Config() { }
+    private final @NotNull List<@NotNull ChannelConfig> channelConfigs = new ArrayList<>();
+    private boolean isAdvanced = false;
+
+    public Config(final @NotNull File configDir) {
+        this.configDir = configDir;
+    }
 
     public @NotNull @UnmodifiableView List<@NotNull ChannelConfig> getChannelConfigs() {
         return Collections.unmodifiableList(this.channelConfigs);
     }
 
-    public boolean read(final @NotNull File rootDir) {
-        if (!rootDir.exists()) {
+    public boolean isAdvanced() {
+        return this.isAdvanced;
+    }
+
+    public void setAdvanced(final boolean isAdvanced) {
+        this.isAdvanced = isAdvanced;
+    }
+
+    public boolean read() {
+        if (!this.configDir.exists()) {
             return false;
         }
 
-        final @NotNull File configFile = new File(rootDir, CONFIG_FILE_NAME);
+        final @NotNull File configFile = new File(this.configDir, CONFIG_FILE_NAME);
         if (!configFile.exists()) {
             return false;
         }
@@ -82,6 +95,9 @@ public class Config {
         }
 
         // Validate config JSON
+        if (configJson.isAdvanced() == null) {
+            return false;
+        }
         for (final @NotNull ChannelConfigJson channelConfigJson : configJson.getChannelConfigs()) {
             if (channelConfigJson.getDirectory() == null || channelConfigJson.getName() == null) {
                 return false;
@@ -92,6 +108,7 @@ public class Config {
         this.channelConfigs.clear();
 
         // Read JSON into configs
+        this.setAdvanced(Objects.requireNonNull(configJson.isAdvanced()));
         for (final @NotNull ChannelConfigJson channelConfigJson : configJson.getChannelConfigs()) {
             final @NotNull String directory = Objects.requireNonNull(channelConfigJson.getDirectory());
             final @NotNull String name = Objects.requireNonNull(channelConfigJson.getName());
@@ -103,16 +120,17 @@ public class Config {
         return true;
     }
 
-    public boolean write(final @NotNull File rootDir) {
-        if (!rootDir.exists()) {
+    public boolean write() {
+        if (!this.configDir.exists()) {
             return false;
         }
 
-        final @NotNull File configFile = new File(rootDir, CONFIG_FILE_NAME);
+        final @NotNull File configFile = new File(this.configDir, CONFIG_FILE_NAME);
 
         final @NotNull ConfigJson configJson = new ConfigJson();
-        final @NotNull List<@NotNull ChannelConfigJson> channelConfigsJson = new ArrayList<>();
+        configJson.setAdvanced(isAdvanced());
 
+        final @NotNull List<@NotNull ChannelConfigJson> channelConfigsJson = new ArrayList<>();
         for (final @NotNull ChannelConfig channelConfig : this.channelConfigs) {
             final @NotNull ChannelConfigJson channelConfigJson = new ChannelConfigJson();
             channelConfigJson.setDirectory(channelConfig.getDirectory());

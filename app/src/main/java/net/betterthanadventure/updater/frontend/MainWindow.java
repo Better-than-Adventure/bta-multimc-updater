@@ -82,8 +82,14 @@ public final class MainWindow {
 
         // Init simple/advanced checkbox
         final @NotNull JCheckBox simpleAdvancedCheckBox = new JCheckBox(resources.getString("frontend.main_window.checkbox.label"), true);
+        if (this.backendManager.getConfig().isAdvanced()) {
+            setDisplayMode(DisplayMode.ADVANCED);
+            simpleAdvancedCheckBox.setSelected(false);
+        }
         simpleAdvancedCheckBox.addActionListener(e -> {
             setDisplayMode(simpleAdvancedCheckBox.isSelected() ? DisplayMode.SIMPLE : DisplayMode.ADVANCED);
+            this.backendManager.getConfig().setAdvanced(!simpleAdvancedCheckBox.isSelected());
+            this.backendManager.getConfig().write();
         });
         this.mainPanel.add(simpleAdvancedCheckBox, BorderLayout.SOUTH);
     }

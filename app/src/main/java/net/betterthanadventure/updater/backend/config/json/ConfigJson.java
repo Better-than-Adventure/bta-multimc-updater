@@ -9,6 +9,8 @@ import java.util.List;
 public class ConfigJson {
     @SerializedName("channelConfigs")
     private @Nullable List<@NotNull ChannelConfigJson> channelConfigs = null;
+    @SerializedName("isAdvanced")
+    private @Nullable Boolean isAdvanced = null;
 
     public ConfigJson() { }
 
@@ -18,5 +20,13 @@ public class ConfigJson {
 
     public void setChannelConfigs(final @Nullable List<@NotNull ChannelConfigJson> channelConfigs) {
         this.channelConfigs = channelConfigs;
+    }
+
+    public @Nullable Boolean isAdvanced() {
+        return this.isAdvanced;
+    }
+
+    public void setAdvanced(final boolean advanced) {
+        this.isAdvanced = advanced;
     }
 }
